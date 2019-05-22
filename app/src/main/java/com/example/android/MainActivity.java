@@ -1,24 +1,28 @@
 package com.example.android;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import java.text.NumberFormat;
 
 /**
  * This app displays an order form to order coffee.
  */
 public class MainActivity extends AppCompatActivity {
 
-    String name = "Iulia";
-    String message = "Thank you!";
+    final String message = "Thank you!";
     boolean checkBoxWippedCream = false;
     boolean checkBoxChocolate = false;
     int numberOfCoffeeOrdered = 0;
-    int coffePrice = 5;
+    final int coffePrice = 5;
+    final int priceWippedCream = 2;
+    final int priceChocolate = 1;
     int totalPrice = 0;
 
     @Override
@@ -31,8 +35,13 @@ public class MainActivity extends AppCompatActivity {
      * This method is called when the plus button is clicked.
      */
     public void increaseOrder(View view) {
-        numberOfCoffeeOrdered++;
-        display(numberOfCoffeeOrdered);
+        if(numberOfCoffeeOrdered < 20) {
+            numberOfCoffeeOrdered++;
+            display(numberOfCoffeeOrdered);
+        }
+        else{
+            Toast.makeText(this,"You can not order more than 20 coffees", Toast.LENGTH_SHORT).show();
+        }
     }
 
     /**
@@ -57,50 +66,83 @@ public class MainActivity extends AppCompatActivity {
      * This method is called when the order button is clicked.
      */
     public void submitOrder(View view) {
-        TextView quantityTextView = (TextView) findViewById(R.id.order_summary_text_view);
-        calculatePrice(numberOfCoffeeOrdered, coffePrice);
-        String summary = createSummary(name, numberOfCoffeeOrdered, totalPrice, message);
-        quantityTextView.setText(summary);
+        calculatePrice(numberOfCoffeeOrdered, coffePrice, priceWippedCream, priceChocolate);
+
+        String summary = createSummary(numberOfCoffeeOrdered, totalPrice, message);
+
+        /**
+         * When the customers presses the order button, the email app opens
+         * to send the summary of the order
+         */
+        Intent intent = new Intent (Intent.ACTION_SENDTO);
+        intent.setData(Uri.parse("mailto:")); // only email apps should handle this
+        intent.putExtra(Intent.EXTRA_SUBJECT, "Just Java app " );
+        intent.putExtra(Intent.EXTRA_TEXT, summary);
+
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        }
     }
 
     /**
-     * @param coffesOrdered = number of coffees the cutorer ordered
-     * @param price         = the price of one coffee
+     * @param coffeesOrdered   = number of coffees the cutorer ordered
+     * @param price            = the price of one coffee
+     * @param wippedCreamPrice = the price of the wipped cream
+     * @param chocolatePrice   = the price of the chocolate
      * @return
      */
-    public void calculatePrice(int coffesOrdered, int price) {
-        totalPrice = coffesOrdered * price;
+    public void calculatePrice(int coffeesOrdered, int price, int wippedCreamPrice, int chocolatePrice ) {
+        if(checkBoxWippedCream && checkBoxChocolate) {
+            totalPrice = (price + wippedCreamPrice + chocolatePrice) * coffeesOrdered;
+        }
+        else if(checkBoxWippedCream) {
+            totalPrice = (price + wippedCreamPrice) * coffeesOrdered;
+        }
+        else if(checkBoxChocolate) {
+            totalPrice = (price + chocolatePrice) * coffeesOrdered;
+        }
+        else {
+            totalPrice = price * coffeesOrdered;
+        }
     }
 
     /**
      * This method displays a summary of the order
      *
-     * @param name     = name of the customer
      * @param quantity = quantity of the coffees ordered
      * @param price    = total price
      * @param message  = Thank you message
      * @return
      */
-    public String createSummary(String name, int quantity, int price, String message) {
+    public String createSummary(int quantity, int price, String message) {
+        /**
+         * Get the name of the customer
+         */
+        EditText getName = (EditText) findViewById(R.id.name_edit_text);
+        String name = getName.getText().toString();
+
+        /**
+         * Check if the customer wants wipped cream or chocolate
+         */
         if(checkBoxWippedCream && checkBoxChocolate){
             checkBoxWippedCream = false;
             checkBoxChocolate = false;
             return "Name: " + name + "\n" + "Add wipped cream and chocolate\n" + "Quantity: " + quantity + " \n"
-                    + "Price: " + price + "\n" + message;
+                    + "Price: $" + price + "\n" + message;
         }
         else if(checkBoxWippedCream){
             checkBoxWippedCream = false;
             return "Name: " + name + "\n" + "Add wipped cream\n" + "Quantity: " + quantity + " \n"
-                    + "Price: " + price + "\n" + message;
+                    + "Price: $" + price + "\n" + message;
         }
         else if(checkBoxChocolate){
             checkBoxChocolate = false;
             return "Name: " + name + "\n" + "Add chocolate\n" + "Quantity: " + quantity + " \n"
-                    + "Price: " + price + "\n" + message;
+                    + "Price: $" + price + "\n" + message;
         }
         else{
             return "Name: " + name + "\n" + "Quantity: " + quantity + "\n"
-                    + "Price: " + price + "\n" + message;
+                    + "Price: $" + price + "\n" + message;
         }
     }
 

@@ -11,6 +11,16 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <EditText
+            android:id="@+id/name_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Name"
+            android:layout_marginTop="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="72dp"
+            android:inputType="textCapWords"/>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -80,23 +90,6 @@
 
 
         </LinearLayout>
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Order Summary"
-            android:textAllCaps="true"
-            android:layout_margin="16dp"/>
-
-        <TextView
-            android:id="@+id/order_summary_text_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="$0"
-            android:textSize="16sp"
-            android:textColor="@android:color/black"
-            android:layout_marginLeft="16dp"/>
 
         <Button
             android:layout_width="wrap_content"
