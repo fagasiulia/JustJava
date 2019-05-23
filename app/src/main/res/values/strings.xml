@@ -1,3 +1,54 @@
-<resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_name">Just Java</string>
+
+    <!-- Customers name [CHAR LIMIT=NONE] -->
+    <string name="customersName">Name</string>
+
+    <!-- Header text for the list of toppings [CHAR LIMIT=20] -->
+    <string name="toppings">Toppings</string>
+
+    <!-- Toppings list [CHAR LIMIT=20] -->
+    <string name="wipped_cream">Wipped cream</string>
+    <string name="chocolate">Chocolate</string>
+
+    <!-- Header text for the quantity -->
+    <string name="quantity">Quantity</string>
+
+    <!-- Plus and minus signs from the buttons-->
+    <string name="minus_sign">-</string>
+    <string name="plus_sign">+</string>
+
+    <!-- Price amount -->
+    <string name="price_amount">0</string>
+
+    <!-- Order button text -->
+    <string name="order">Order</string>
+
+    <!--
+      Name for the order summary. It will be shown in the format "Name: Amy" where Amy is
+      the user's name [CHAR LIMIT= NONE]
+      -->
+    <string name="order_summary_name">Name: <xliff:g id="name" example="Amy">%s</xliff:g></string>
+
+    <!--
+      Quantity for the order summary. It will be shown in the format "Quanity: 5" where 5 is
+      the coffees order
+      -->
+    <string name="oder_summary_quanity">Quantity: <xliff:d id="coffees" example="5">%i</xliff:d></string>
+
+    <!--
+      Price for the order summary. It will be shown in the format "Price: $20" where 20 is the
+      price for the coffees ordered
+      -->
+    <string name="oder_summary_price">Price: $<xliff:d id="price" example="20">%i</xliff:d></string>
+
+    <!-- To be printed in the order summary if the customers wants any topping -->
+    <string name="add_wipped_cream_and_chocolate">Add wipped cream and chocolate</string>
+    <string name="add_wipped_cream">Add wipped cream</string>
+    <string name="add_chocolate">Add chocolate</string>
+
+    <!-- Thank you message for the order summary. [CHAR LIMIT=NONE] -->
+    <string name="thank_you">Thank you!</string>
+
+
 </resources>

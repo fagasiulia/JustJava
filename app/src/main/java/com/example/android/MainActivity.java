@@ -16,7 +16,6 @@ import android.widget.Toast;
  */
 public class MainActivity extends AppCompatActivity {
 
-    final String message = "Thank you!";
     boolean checkBoxWippedCream = false;
     boolean checkBoxChocolate = false;
     int numberOfCoffeeOrdered = 0;
@@ -58,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
      * This method displays the given quantity value on the screen.
      */
     public void display(int number) {
-        TextView quantityTextView = (TextView) findViewById(R.id.quantity_text_view);
+        TextView quantityTextView = findViewById(R.id.quantity_text_view);
         quantityTextView.setText("" + number);
     }
 
@@ -68,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
     public void submitOrder(View view) {
         calculatePrice(numberOfCoffeeOrdered, coffePrice, priceWippedCream, priceChocolate);
 
-        String summary = createSummary(numberOfCoffeeOrdered, totalPrice, message);
+        String summary = createSummary(numberOfCoffeeOrdered, totalPrice, getString(R.string.thank_you));
 
         /**
          * When the customers presses the order button, the email app opens
@@ -76,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
          */
         Intent intent = new Intent (Intent.ACTION_SENDTO);
         intent.setData(Uri.parse("mailto:")); // only email apps should handle this
-        intent.putExtra(Intent.EXTRA_SUBJECT, "Just Java app " );
+        intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.app_name));
         intent.putExtra(Intent.EXTRA_TEXT, summary);
 
         if (intent.resolveActivity(getPackageManager()) != null) {
@@ -89,7 +88,6 @@ public class MainActivity extends AppCompatActivity {
      * @param price            = the price of one coffee
      * @param wippedCreamPrice = the price of the wipped cream
      * @param chocolatePrice   = the price of the chocolate
-     * @return
      */
     public void calculatePrice(int coffeesOrdered, int price, int wippedCreamPrice, int chocolatePrice ) {
         if(checkBoxWippedCream && checkBoxChocolate) {
@@ -112,13 +110,13 @@ public class MainActivity extends AppCompatActivity {
      * @param quantity = quantity of the coffees ordered
      * @param price    = total price
      * @param message  = Thank you message
-     * @return
+     * @return text body for the order summary
      */
     public String createSummary(int quantity, int price, String message) {
         /**
-         * Get the name of the customer
+         /* Get the name of the customer
          */
-        EditText getName = (EditText) findViewById(R.id.name_edit_text);
+        EditText getName = findViewById(R.id.name_edit_text);
         String name = getName.getText().toString();
 
         /**
@@ -127,22 +125,26 @@ public class MainActivity extends AppCompatActivity {
         if(checkBoxWippedCream && checkBoxChocolate){
             checkBoxWippedCream = false;
             checkBoxChocolate = false;
-            return "Name: " + name + "\n" + "Add wipped cream and chocolate\n" + "Quantity: " + quantity + " \n"
-                    + "Price: $" + price + "\n" + message;
+            return getString(R.string.order_summary_name, name) + "\n" + getString(R.string.add_wipped_cream_and_chocolate)+
+                    "\n" + getString(R.string.oder_summary_quanity, quantity) + " \n" +
+                    getString(R.string.oder_summary_price, price) + "\n" + getString(R.string.thank_you);
         }
         else if(checkBoxWippedCream){
             checkBoxWippedCream = false;
-            return "Name: " + name + "\n" + "Add wipped cream\n" + "Quantity: " + quantity + " \n"
-                    + "Price: $" + price + "\n" + message;
+            return getString(R.string.order_summary_name, name) + "\n" + getString(R.string.add_wipped_cream)+
+                    "\n" + getString(R.string.oder_summary_quanity, quantity) + " \n" +
+                    getString(R.string.oder_summary_price, price) + "\n" + getString(R.string.thank_you);
         }
         else if(checkBoxChocolate){
             checkBoxChocolate = false;
-            return "Name: " + name + "\n" + "Add chocolate\n" + "Quantity: " + quantity + " \n"
-                    + "Price: $" + price + "\n" + message;
+            return getString(R.string.order_summary_name, name) + "\n" + getString(R.string.add_chocolate)+
+                    "\n" + getString(R.string.oder_summary_quanity, quantity) + " \n" +
+                    getString(R.string.oder_summary_price, price) + "\n" + getString(R.string.thank_you);
         }
         else{
-            return "Name: " + name + "\n" + "Quantity: " + quantity + "\n"
-                    + "Price: $" + price + "\n" + message;
+            return getString(R.string.order_summary_name, name) + "\n" +
+                    "\n" + getString(R.string.oder_summary_quanity, quantity) + " \n" +
+                    getString(R.string.oder_summary_price, price) + "\n" + getString(R.string.thank_you);
         }
     }
 
@@ -150,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
      * Check if the checkBox for the wipped cream is checked or not
      */
     public void addWippedCream(View v){
-        CheckBox wippedCream = (CheckBox) findViewById(R.id.wipped_cream_checkBox);
+        CheckBox wippedCream = findViewById(R.id.wipped_cream_checkBox);
         if (wippedCream.isChecked()){
             checkBoxWippedCream = true;
         }
@@ -160,7 +162,7 @@ public class MainActivity extends AppCompatActivity {
      * Check if the checkBox for the chocolate is checked or not
      */
     public void addChocolate(View v){
-        CheckBox chocolate = (CheckBox) findViewById(R.id.chocolate_checkBox);
+        CheckBox chocolate = findViewById(R.id.chocolate_checkBox);
         if (chocolate.isChecked()){
             checkBoxChocolate= true;
         }

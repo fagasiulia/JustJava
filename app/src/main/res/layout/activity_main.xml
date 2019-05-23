@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,53 +7,39 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <EditText
             android:id="@+id/name_edit_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Name"
+            android:hint="@string/customersName"
             android:layout_marginTop="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="72dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="72dp"
             android:inputType="textCapWords"/>
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Toppings"
-            android:textAllCaps="true"
-            android:layout_margin="16dp"/>
+            style="@style/HeaderText"
+            android:text="@string/toppings" />
 
         <CheckBox
+            style="@style/ToppingsText"
             android:id="@+id/wipped_cream_checkBox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Wipped cream"
-            android:textSize="16sp"
-            android:layout_marginLeft="16dp"
-            android:paddingLeft="24dp"
+            android:text="@string/wipped_cream"
             android:onClick="addWippedCream"/>
 
         <CheckBox
+            style="@style/ToppingsText"
             android:id="@+id/chocolate_checkBox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Chocolate"
-            android:textSize="16sp"
-            android:layout_marginLeft="16dp"
+            android:text="@string/chocolate"
             android:layout_marginTop="16dp"
-            android:paddingLeft="24dp"
             android:onClick="addChocolate"/>
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Quantity"
-            android:textAllCaps="true"
-            android:layout_margin="16dp"/>
+            style="@style/HeaderText"
+            android:text="@string/quantity" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -65,8 +50,8 @@
                 android:id="@+id/minus_button"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:text="-"
-                android:layout_marginLeft="16dp"
+                android:text="@string/minus_sign"
+                android:layout_marginStart="16dp"
                 android:onClick="decreaseOrder"
                 />
 
@@ -74,7 +59,7 @@
                 android:id="@+id/quantity_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="0"
+                android:text="@string/price_amount"
                 android:textSize="16sp"
                 android:textColor="@android:color/black"
                 android:layout_marginLeft="8dp"
@@ -84,7 +69,7 @@
                 android:id="@+id/plus_button"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:text="+"
+                android:text="@string/plus_sign"
                 android:onClick="increaseOrder" />
 
 
@@ -94,7 +79,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="order"
+            android:text="@string/order"
             android:layout_margin="16dp"
             android:onClick="submitOrder"
             />
